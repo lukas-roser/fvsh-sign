@@ -1,14 +1,23 @@
 #include <Arduino.h>
+#include <Wire.h>
 
-int pin = 23;
+#include "display.h"
+#include "webControlPanel.h"
 
-void setup() {
-  pinMode(pin, OUTPUT);
+constexpr uint8_t I2C_SDA = 21;
+constexpr uint8_t I2C_SCL = 22;
+
+void setup()
+{
+    Serial.begin(115200);
+
+    Wire.begin(I2C_SDA, I2C_SCL);
+
+    displayInit();
+    webControlPanelInit();
 }
 
-void loop() {
-  digitalWrite(pin, HIGH);
-  delay(1000);
-  digitalWrite(pin, LOW);
-  delay(1000);
+void loop()
+{
+    webControlPanelLoop();
 }
